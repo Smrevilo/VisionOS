@@ -6,21 +6,25 @@
 //
 
 import SwiftUI
-import RealityKit
-import RealityKitContent
 
 struct ContentView: View {
+    
+    @State private var buttonText = "Hello, Vision Pro!"
+    @State private var tapped = false
+    
     var body: some View {
-        VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
-                .padding(.bottom, 50)
-
-            Text("Hello, world!123")
+        Text(buttonText)
+            .font(.largeTitle)
+            .bold()
+            .position(x: 400, y: 700)
+        Button("Change Text") {
+            buttonText = tapped ? "Hello, Vision Pro!" : "Button was tapped!"
+            tapped = !tapped
+            print("Button was TAPPED")
         }
-        .padding()
     }
 }
 
-#Preview(windowStyle: .automatic) {
+#Preview {
     ContentView()
 }
