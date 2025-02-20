@@ -27,7 +27,7 @@ let sampleData: [DataPoint] = [
 
 
 struct ContentView: View {
-    
+    @Environment(\.openImmersiveSpace) private var openImmersiveSpace
     @State private var goToNext = false
     
     var body: some View {
@@ -40,6 +40,11 @@ struct ContentView: View {
                 
                 Button("Go to second screen") {
                     goToNext = true
+                }
+                Button("Enter Immersive Scene") {
+                    Task {
+                        await openImmersiveSpace(id: "myImmersiveScene")
+                    }
                 }
             }
             .navigationDestination(isPresented: $goToNext) {

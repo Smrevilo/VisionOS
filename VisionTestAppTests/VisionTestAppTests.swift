@@ -6,12 +6,22 @@
 //
 
 import Testing
+import SwiftUI
+import RealityKit
 @testable import VisionTestApp
 
 struct VisionTestAppTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @Test func testMoleAppearsInScene() {
+        let view = WhacAMoleView()
+        let realityView = try await extractRealityView(from: view)
+        
+        let hasMole = realityView.entities.contains {
+            entity in
+            entity is ModelEntity
+        }
+        
+        #expect(hasMole, "Mole Should be present in scene")
+        
     }
-
 }

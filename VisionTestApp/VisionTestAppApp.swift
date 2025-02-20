@@ -13,5 +13,11 @@ struct VisionTestAppApp: App {
         WindowGroup {
             ContentView()
         }
+        ImmersiveSpace(id: "myImmersiveScene") {
+            ImmersiveView()
+        }
+        ImmersiveSpace(id: "WhacAMole") {
+            WhacAMoleView()
+        }
     }
 }
