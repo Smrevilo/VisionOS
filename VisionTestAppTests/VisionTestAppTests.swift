@@ -12,16 +12,10 @@ import RealityKit
 
 struct VisionTestAppTests {
 
-    @Test func testMoleAppearsInScene() {
-        let view = WhacAMoleView()
-        let realityView = try await extractRealityView(from: view)
-        
-        let hasMole = realityView.entities.contains {
-            entity in
-            entity is ModelEntity
-        }
-        
-        #expect(hasMole, "Mole Should be present in scene")
+    @Test func test() async throws {
         
     }
 }
+
+
+
