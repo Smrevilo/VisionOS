@@ -15,9 +15,6 @@ struct VisionTestAppApp: App {
         WindowGroup {
             ContentView(score: $score)
         }
-        ImmersiveSpace(id: "myImmersiveScene") {
-            ImmersiveView()
-        }
         ImmersiveSpace(id: "WhacAMole") {
             WhacAMoleView(score: $score)
         }

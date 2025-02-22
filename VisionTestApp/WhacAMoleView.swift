@@ -27,12 +27,28 @@ struct WhacAMoleView: View {
                 sphere.components.set(InputTargetComponent())
                 content.add(sphere)
                 
+                let anchor = AnchorEntity(.head)
+                let scoreText = createTextEntity(text: "Score: \(score)")
+                
+                scoreText.position = [0.5, 0.3, -1]
+                scoreText.name = "scoreText"
+                
+                anchor.addChild(scoreText)
+                content.add(anchor)
+                
+                
                 
             } update: { content in
                 if let sphere = content.entities.first {
                     sphere.position = spherePos
                     sphere.transform.scale = SIMD3<Float>(repeating: sphereSize)
                     
+                }
+                
+                if let anchor = content.entities.first(where: { $0 is AnchorEntity }) as? AnchorEntity,
+                   let textEntity = anchor.children.first(where: { $0.name == "scoreText" }) as? ModelEntity
+                {
+                    updateTextEntity(textEntity, newText: "Score: \(score)")
                 }
                 
             }
@@ -51,3 +67,36 @@ struct WhacAMoleView: View {
     }
 }
 
+func createTextEntity(text: String) -> ModelEntity {
+    let textMesh = MeshResource.generateText(
+            text,
+            extrusionDepth: 0.01, // Makes the text slightly 3D
+            font: .systemFont(ofSize: 0.1), // Adjust size
+            containerFrame: .zero,
+            alignment: .center,
+            lineBreakMode: .byWordWrapping
+        )
+    let material = SimpleMaterial(color: .white, isMetallic: false)
+    let entity = ModelEntity(mesh: textMesh, materials: [material])
+    entity.name = "scoreText"
+        
+    return entity
+    
+}
+
+func updateTextEntity(_ entity: ModelEntity, newText: String) {
+    let newMesh = MeshResource.generateText(
+        newText,
+        extrusionDepth: 0.01,
+        font: .systemFont(ofSize: 0.1),
+        containerFrame: .zero,
+        alignment: .center,
+        lineBreakMode: .byWordWrapping
+    )
+    
+    if var modelComponent = entity.components[ModelComponent.self] {
+            modelComponent.mesh = newMesh
+            entity.components[ModelComponent.self] = modelComponent
+    }
+    
+}
