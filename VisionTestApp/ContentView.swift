@@ -28,7 +28,18 @@ let sampleData: [DataPoint] = [
 
 struct ContentView: View {
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace
+    @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
+    
     @State private var goToNext = false
+    
+    @Binding private var score: Int
+    @State private var gameActive: Bool = false
+    @State private var timeRemaning: Int = 20
+    @State private var timer: Timer?
+    
+    init(score: Binding<Int>) {
+        self._score = score
+    }
     
     var body: some View {
         NavigationStack {
@@ -38,13 +49,21 @@ struct ContentView: View {
                     .bold()
                     .padding()
                 
+                Text("Score \(score)")
+                    .font(.title2)
+                    .padding()
+                
+                Text("Time remaining \(timeRemaning)")
+                    .font(.title3)
+                    .foregroundColor(timeRemaning > 5 ? .white : .red)
+                    .padding()
+                
                 Button("Go to second screen") {
                     goToNext = true
                 }
+                
                 Button("Enter Immersive Scene") {
-                    Task {
-                        await openImmersiveSpace(id: "WhacAMole")
-                    }
+                    startGame()
                 }
             }
             .navigationDestination(isPresented: $goToNext) {
@@ -53,7 +72,39 @@ struct ContentView: View {
             .navigationTitle("Main Screen")
         }
     }
+    
+    private func startGame() {
+        gameActive = true
+        score = 0
+        timeRemaning = 20
+        
+        Task {
+            await openImmersiveSpace(id: "WhacAMole")
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
+            _ in
+            if timeRemaning > 0 {
+                timeRemaning -= 1
+            } else {
+                endGame()
+            }
+            
+        }
+        
+    }
+    
+    private func endGame() {
+        gameActive = false
+        timer?.invalidate() // ✅ Stop the timer
+        timer = nil
+
+        Task {
+            await dismissImmersiveSpace()
+        }
+    }
 }
+
 
 struct SecondView: View {
     @Environment(\.dismiss) var dismiss
@@ -90,6 +141,4 @@ struct GraphView: View {
 }
 
 
-#Preview {
-    ContentView()
-}
+

@@ -11,16 +11,15 @@ import RealityKit
 struct WhacAMoleView: View {
     @State private var spherePos: SIMD3<Float> = [0, 2, -2]
     @State private var sphereSize: Float = 0.5
-    @State private var score: Int = 0
+    @Binding private var score: Int
+    
+    init(score: Binding<Int>) { 
+        self._score = score
+    }
     
     
     var body: some View {
         VStack {
-            Text("Score: \(score)")
-                .font(.largeTitle)
-                .bold()
-                .padding()
-            
             RealityView { content in
                 let sphere = ModelEntity(mesh: .generateSphere(radius: sphereSize))
                 sphere.position = spherePos

@@ -9,15 +9,17 @@ import SwiftUI
 
 @main
 struct VisionTestAppApp: App {
+    @State private var score: Int = 0
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(score: $score)
         }
         ImmersiveSpace(id: "myImmersiveScene") {
             ImmersiveView()
         }
         ImmersiveSpace(id: "WhacAMole") {
-            WhacAMoleView()
+            WhacAMoleView(score: $score)
         }
     }
 }
