@@ -29,7 +29,6 @@ let sampleData: [DataPoint] = [
 struct ContentView: View {
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
-    
     @State private var goToNext = false
     
     @Binding private var score: Int
@@ -71,7 +70,10 @@ struct ContentView: View {
                 SecondView()
             }
             .navigationTitle("Main Screen")
+            
         }
+        .opacity(gameActive ? 0 : 1)
+        .disabled(gameActive)
     }
     
     private func startGame() {

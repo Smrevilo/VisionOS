@@ -64,8 +64,8 @@ struct WhacAMoleView: View {
 func createTextEntity(text: String) -> ModelEntity {
     let textMesh = MeshResource.generateText(
             text,
-            extrusionDepth: 0.01, // Makes the text slightly 3D
-            font: .systemFont(ofSize: 0.1), // Adjust size
+            extrusionDepth: 0.1, // Makes the text slightly 3D
+            font: .systemFont(ofSize: 0.05), // Adjust size
             containerFrame: .zero,
             alignment: .center,
             lineBreakMode: .byWordWrapping
