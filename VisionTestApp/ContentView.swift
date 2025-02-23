@@ -33,12 +33,13 @@ struct ContentView: View {
     @State private var goToNext = false
     
     @Binding private var score: Int
+    @Binding private var timeRemaning: Int
     @State private var gameActive: Bool = false
-    @State private var timeRemaning: Int = 20
     @State private var timer: Timer?
     
-    init(score: Binding<Int>) {
+    init(score: Binding<Int>, timeRemaning: Binding<Int>) {
         self._score = score
+        self._timeRemaning = timeRemaning
     }
     
     var body: some View {

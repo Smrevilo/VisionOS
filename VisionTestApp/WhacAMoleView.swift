@@ -12,6 +12,7 @@ struct WhacAMoleView: View {
     @State private var spherePos: SIMD3<Float> = [0, 2, -2]
     @State private var sphereSize: Float = 0.5
     @Binding private var score: Int
+    @Binding private var timeRemaning: Int
     
     var body: some View {
         RealityView { content in
@@ -22,9 +23,9 @@ struct WhacAMoleView: View {
             content.add(sphere)
             
             let anchor = AnchorEntity(.head)
-            let scoreText = createTextEntity(text: "Score: \(score)")
+            let scoreText = createTextEntity(text: "Score: \(score) \nTime Remaining: \(timeRemaning)")
             
-            scoreText.position = [0.5, 0.3, -1]
+            scoreText.position = [0.0, 0.3, -1]
             scoreText.name = "scoreText"
             
             anchor.addChild(scoreText)
@@ -38,7 +39,7 @@ struct WhacAMoleView: View {
             if let anchor = content.entities.first(where: { $0 is AnchorEntity }) as? AnchorEntity,
                 let textEntity = anchor.children.first(where: { $0.name == "scoreText" }) as? ModelEntity
             {
-                updateTextEntity(textEntity, newText: "Score: \(score)")
+                updateTextEntity(textEntity, newText: "Score: \(score) \nTime Remaining: \(timeRemaning)")
             }
             
         }
@@ -54,8 +55,9 @@ struct WhacAMoleView: View {
         })
     }
     
-    init(score: Binding<Int>) {
+    init(score: Binding<Int>, timeRemaning: Binding<Int>) {
         self._score = score
+        self._timeRemaning = timeRemaning
     }
 }
 
