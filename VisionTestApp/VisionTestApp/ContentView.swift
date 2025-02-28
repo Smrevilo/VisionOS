@@ -69,7 +69,7 @@ struct ContentView: View {
             .navigationDestination(isPresented: $goToNext) {
                 SecondView()
             }
-            .navigationTitle("Main Screen")
+            .navigationTitle("Main Screen1")
             
         }
         .opacity(gameActive ? 0 : 1)
