@@ -22,7 +22,6 @@
 
 /* Begin PBXFileReference section */
 		6F230D6B2D70C27B00431594 /* WallArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F230D6F2D70C27B00431594 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		6F230D862D70C27E00431594 /* WallArtTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WallArtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -34,6 +33,13 @@
 			);
 			target = 6F230D6A2D70C27B00431594 /* WallArt */;
 		};
+		6F230DCC2D71EF3400431594 /* Exceptions for "WallArt" folder in "WallArtTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				think_different.png,
+			);
+			target = 6F230D852D70C27E00431594 /* WallArtTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -41,6 +47,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				6F230D8C2D70C27E00431594 /* Exceptions for "WallArt" folder in "WallArt" target */,
+				6F230DCC2D71EF3400431594 /* Exceptions for "WallArt" folder in "WallArtTests" target */,
 			);
 			path = WallArt;
 			sourceTree = "<group>";
@@ -75,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				6F230D6D2D70C27B00431594 /* WallArt */,
-				6F230D6E2D70C27B00431594 /* Packages */,
 				6F230D892D70C27E00431594 /* WallArtTests */,
 				6F230D6C2D70C27B00431594 /* Products */,
 			);
@@ -88,14 +94,6 @@
 				6F230D862D70C27E00431594 /* WallArtTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		6F230D6E2D70C27B00431594 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				6F230D6F2D70C27B00431594 /* RealityKitContent */,
-			);
-			path = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +173,9 @@
 			);
 			mainGroup = 6F230D622D70C27B00431594;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6F230DC82D71E63900431594 /* XCLocalSwiftPackageReference "../../../Downloads/GenerativeDoodleArt_VisionOS-main/Packages/RealityKitContent" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6F230D6C2D70C27B00431594 /* Products */;
 			projectDirPath = "";
@@ -471,6 +472,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		6F230DC82D71E63900431594 /* XCLocalSwiftPackageReference "../../../Downloads/GenerativeDoodleArt_VisionOS-main/Packages/RealityKitContent" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Downloads/GenerativeDoodleArt_VisionOS-main/Packages/RealityKitContent";
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		6F230D702D70C27B00431594 /* RealityKitContent */ = {
