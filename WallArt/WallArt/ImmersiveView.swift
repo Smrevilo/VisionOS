@@ -16,6 +16,9 @@ struct ImmersiveView: View {
     @State var inputText = ""
     @State var showTextField = false
     
+    @State private var assistant: Entity? = nil
+    @State private var waveAnimation: AnimationResource? = nil
+    
     @State var characterEntity: Entity = {
         let headAnchor = AnchorEntity(.head)
         headAnchor.position = [0.7, -0.35, -1]
@@ -49,6 +52,26 @@ struct ImmersiveView: View {
                 let radians = 30 * Float.pi / 180
                 ImmersiveView.rotateEntityAroundYAxis(entity: attachmentEntity, angle: radians)
                 characterEntity.addChild(attachmentEntity)
+                
+                let characterAnimationSceneEntity = try await Entity(named: "CharacterAnimations", in: realityKitContentBundle)
+                
+                guard let waveModel = characterAnimationSceneEntity.findEntity(named: "wave_model") else {return}
+                guard let assitant = characterEntity.findEntity(named: "assistant") else {return}
+                
+                guard let idleAnimationResource = assitant.availableAnimations.first else {return}
+                guard let waveAnimatonResource = waveModel.availableAnimations.first else {return}
+                
+                
+                
+                let waveAnimation = try AnimationResource.sequence(with: [waveAnimatonResource, idleAnimationResource.repeat()])
+                
+                assitant.playAnimation(idleAnimationResource.repeat())
+                
+                Task {
+                    self.assistant = assitant
+                    self.waveAnimation = waveAnimation
+                }
+                
             } catch {
                 print("Error in realityView's make: \(error)")
             }
@@ -88,6 +111,9 @@ struct ImmersiveView: View {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     showTextField.toggle()
                 }
+            }
+            if let assistant = self.assistant, let waveAnimation = self.waveAnimation {
+                assistant.playAnimation(waveAnimation.repeat(count: 1))
             }
         }
     }
