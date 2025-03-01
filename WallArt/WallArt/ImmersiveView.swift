@@ -8,16 +8,22 @@
 import SwiftUI
 import RealityKit
 import RealityKitContent
+import Combine
 
 struct ImmersiveView: View {
     
     @Environment(AppModel.self) private var appModel
     
-    @State var inputText = ""
-    @State var showTextField = false
+    @State private var inputText = ""
+    @State public var showTextField = false
     
     @State private var assistant: Entity? = nil
     @State private var waveAnimation: AnimationResource? = nil
+    
+    @State public var showAttachmentButtons = false
+    
+    let tapSubject = PassthroughSubject<Void, Never>()
+    @State var cancellable: AnyCancellable?
     
     @State var characterEntity: Entity = {
         let headAnchor = AnchorEntity(.head)
@@ -84,6 +90,37 @@ struct ImmersiveView: View {
                         .fontWeight(.regular)
                         .padding(40)
                         .glassBackgroundEffect()
+                    
+                    if showAttachmentButtons {
+                        HStack(spacing: 20) {
+                            Button(action: {
+                                tapSubject.send()
+                            }) {
+                                Text("Yes, let's go!")
+                                    .font(.largeTitle)
+                                    .fontWeight(.regular)
+                                    .padding()
+                                    .cornerRadius(8)
+                            }
+                            .padding()
+                            .buttonStyle(.bordered)
+                            
+                            Button(action: {
+                                
+                            }) {
+                                Text("No")
+                                    .font(.largeTitle)
+                                    .fontWeight(.regular)
+                                    .padding()
+                                    .cornerRadius(8)
+                            }
+                            .padding()
+                            .buttonStyle(.bordered)
+                        }
+                        .glassBackgroundEffect()
+                        .opacity(showAttachmentButtons ? 1 : 0)
+                        
+                    }
                 }
                 .opacity(showTextField ? 1 : 0)
             }
@@ -105,6 +142,16 @@ struct ImmersiveView: View {
         }
     }
     
+    func animatePromptText(text: String) async {
+        inputText = ""
+        let words = text.split(separator: " ")
+        for word in words {
+            inputText.append(word + " ")
+            let milliseconds = (1 + UInt64 .random(in: 0 ... 1)) * 100
+            try? await Task.sleep(for: .milliseconds(milliseconds))
+        }
+    }
+    
     func playIntroSequence() {
         Task {
             if !showTextField {
@@ -114,6 +161,17 @@ struct ImmersiveView: View {
             }
             if let assistant = self.assistant, let waveAnimation = self.waveAnimation {
                 assistant.playAnimation(waveAnimation.repeat(count: 1))
+            }
+            
+            let texts = [
+                "Hey :) Let's create some doodle art with the Vision Pro Are you Ready?",
+                "Awesome. Draw something and watch it come alive"
+            ]
+            
+            await animatePromptText(text: texts[0])
+            
+            withAnimation(.easeInOut(duration: 0.3)) {
+                showAttachmentButtons = true
             }
         }
     }
