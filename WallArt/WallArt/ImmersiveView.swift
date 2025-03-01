@@ -11,6 +11,11 @@ import RealityKitContent
 
 struct ImmersiveView: View {
     
+    @Environment(AppModel.self) private var appModel
+    
+    @State var inputText = ""
+    @State var showTextField = false
+    
     @State var characterEntity: Entity = {
         let headAnchor = AnchorEntity(.head)
         headAnchor.position = [0.7, -0.35, -1]
@@ -31,18 +36,62 @@ struct ImmersiveView: View {
     }()
 
     var body: some View {
-        RealityView { content in
-            // Add the initial RealityKit content
+        RealityView { content, attachments in
             do {
                 let immersiveContentEntity = try await Entity(named: "Immersive", in: realityKitContentBundle)
                 characterEntity.addChild(immersiveContentEntity)
                 content.add(characterEntity)
                 content.add(planeEntity)
+                
+                // Get the attachment entity from the attachments parameter.
+                guard let attachmentEntity = attachments.entity(for: "attachment") else { return }
+                attachmentEntity.position = SIMD3<Float>(0, 0.62, 0)
+                let radians = 30 * Float.pi / 180
+                ImmersiveView.rotateEntityAroundYAxis(entity: attachmentEntity, angle: radians)
+                characterEntity.addChild(attachmentEntity)
             } catch {
                 print("Error in realityView's make: \(error)")
             }
+        } attachments: {
+            Attachment(id: "attachment") {
+                VStack {
+                    Text(inputText)
+                        .frame(maxWidth: 600, alignment: .leading)
+                        .font(.extraLargeTitle2)
+                        .fontWeight(.regular)
+                        .padding(40)
+                        .glassBackgroundEffect()
+                }
+                .opacity(showTextField ? 1 : 0)
+            }
+        }
+        .gesture(SpatialTapGesture().targetedToAnyEntity().onEnded { _ in
+            appModel.flowState = .intro
+        })
+        .onChange(of: appModel.flowState) { _, newValue in
+            switch newValue {
+            case .idle:
+                break
+            case .intro:
+                playIntroSequence()
+            case .projectileFlying:
+                break
+            case .updateWallart:
+                break
+            }
         }
     }
+    
+    func playIntroSequence() {
+        Task {
+            if !showTextField {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    showTextField.toggle()
+                }
+            }
+        }
+    }
+
     
     static func rotateEntityAroundYAxis(entity: Entity, angle: Float) {
         //Get the transform of the input entity
