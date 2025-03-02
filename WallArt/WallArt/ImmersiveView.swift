@@ -15,6 +15,8 @@ struct ImmersiveView: View {
     @Environment(AppModel.self) private var appModel
     @Environment(\.openWindow) private var openWindow
     
+    @State private var projectile: Entity? = nil
+    
     @State private var inputText = ""
     @State public var showTextField = false
     
@@ -70,6 +72,12 @@ struct ImmersiveView: View {
                 guard let jumpFloatModel = characterAnimationSceneEntity.findEntity(named: "jump_float_model") else {return}
                 guard let jumpDownModel = characterAnimationSceneEntity.findEntity(named: "jump_down_model") else {return}
                 
+                let projectileSceneEntity = try await Entity(named: "MainParticle", in: realityKitContentBundle)
+                guard let projectile = projectileSceneEntity.findEntity(named: "ParticleRoot") else {return}
+                projectile.children[0].components[ParticleEmitterComponent.self]?.isEmitting = false
+                projectile.children[1].components[ParticleEmitterComponent.self]?.isEmitting = false
+                characterEntity.addChild(projectile)
+                
                 guard let idleAnimationResource = assitant.availableAnimations.first else {return}
                 guard let waveAnimatonResource = waveModel.availableAnimations.first else {return}
                 
@@ -88,6 +96,7 @@ struct ImmersiveView: View {
                     self.assistant = assitant
                     self.waveAnimation = waveAnimation
                     self.jumpAnimation = jumpAnimation
+                    self.projectile = projectile
                 }
                 
             } catch {
@@ -147,7 +156,20 @@ struct ImmersiveView: View {
             case .intro:
                 playIntroSequence()
             case .projectileFlying:
-                break
+                if let projectile = self.projectile {
+                    let dest = Transform(scale: projectile.transform.scale, rotation: projectile.transform.rotation, translation: [-0.7, 0.15, -0.5]*2)
+                    Task {
+                        let duration = 3.0
+                        projectile.position = [0, 0.1, 0]
+                        projectile.children[0].components[ParticleEmitterComponent.self]?.isEmitting = true
+                        projectile.children[1].components[ParticleEmitterComponent.self]?.isEmitting = true
+                        projectile.move(to: dest, relativeTo: self.characterEntity, duration: duration, timingFunction: .easeInOut)
+                        projectile.children[0].components[ParticleEmitterComponent.self]?.isEmitting = false
+                        projectile.children[1].components[ParticleEmitterComponent.self]?.isEmitting = false
+                        appModel.flowState = .updateWallart
+                    }
+                }
+                
             case .updateWallart:
                 if let plane = planeEntity.findEntity(named: "canvas") as? ModelEntity {
                     plane.model?.materials = [ImmersiveView.loadImageMaterial(imageUrl: "sketch")]
