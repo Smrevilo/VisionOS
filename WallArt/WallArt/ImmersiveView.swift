@@ -67,10 +67,17 @@ struct ImmersiveView: View {
                 guard let assitant = characterEntity.findEntity(named: "assistant") else {return}
                 
                 guard let jumpUpModel = characterAnimationSceneEntity.findEntity(named: "jump_up_model") else {return}
+                guard let jumpFloatModel = characterAnimationSceneEntity.findEntity(named: "jump_float_model") else {return}
+                guard let jumpDownModel = characterAnimationSceneEntity.findEntity(named: "jump_down_model") else {return}
                 
                 guard let idleAnimationResource = assitant.availableAnimations.first else {return}
                 guard let waveAnimatonResource = waveModel.availableAnimations.first else {return}
                 
+                guard let jumpUpAnimationResource = jumpUpModel.availableAnimations.first else {return}
+                guard let jumpFloatAnimationResource = jumpFloatModel.availableAnimations.first else {return}
+                guard let jumpDownAnimationResource = jumpDownModel.availableAnimations.first else {return}
+                
+                let jumpAnimation = try AnimationResource.sequence(with: [jumpUpAnimationResource, jumpFloatAnimationResource, jumpDownAnimationResource, idleAnimationResource.repeat()])
                 
                 
                 let waveAnimation = try AnimationResource.sequence(with: [waveAnimatonResource, idleAnimationResource.repeat()])
@@ -80,6 +87,7 @@ struct ImmersiveView: View {
                 Task {
                     self.assistant = assitant
                     self.waveAnimation = waveAnimation
+                    self.jumpAnimation = jumpAnimation
                 }
                 
             } catch {
@@ -143,6 +151,16 @@ struct ImmersiveView: View {
             case .updateWallart:
                 if let plane = planeEntity.findEntity(named: "canvas") as? ModelEntity {
                     plane.model?.materials = [ImmersiveView.loadImageMaterial(imageUrl: "sketch")]
+                }
+                
+                if let assistant = self.assistant, let jumpAnimation = self.jumpAnimation {
+                    Task {
+                        try? await Task.sleep(for: .milliseconds(500))
+                        assistant.playAnimation(jumpAnimation)
+                        await animatePromptText(text: "Awesome")
+                        try? await Task.sleep(for: .milliseconds(500))
+                        await animatePromptText(text: "What else do you want to see us build in Vision Pro")
+                    }
                 }
             }
         }
