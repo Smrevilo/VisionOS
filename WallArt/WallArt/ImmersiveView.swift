@@ -152,6 +152,15 @@ struct ImmersiveView: View {
         }
     }
     
+    func waitForButtonTap(using buttonTapPublisher: PassthroughSubject<Void, Never>) async {
+        await withCheckedContinuation { continuation in
+            let cancellable = tapSubject.first().sink { _ in
+                continuation.resume()
+            }
+            self.cancellable = cancellable
+        }
+    }
+    
     func playIntroSequence() {
         Task {
             if !showTextField {
@@ -172,6 +181,16 @@ struct ImmersiveView: View {
             
             withAnimation(.easeInOut(duration: 0.3)) {
                 showAttachmentButtons = true
+            }
+            
+            await waitForButtonTap(using: tapSubject)
+            
+            withAnimation(.easeInOut(duration:0.3)) {
+                showAttachmentButtons = false
+            }
+                          
+            Task {
+                await animatePromptText(text: texts[1])
             }
         }
     }
