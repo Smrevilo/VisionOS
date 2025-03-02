@@ -36,6 +36,7 @@
 		6F230DCC2D71EF3400431594 /* Exceptions for "WallArt" folder in "WallArtTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				sketch.jpeg,
 				think_different.png,
 			);
 			target = 6F230D852D70C27E00431594 /* WallArtTests */;

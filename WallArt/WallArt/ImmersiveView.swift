@@ -13,12 +13,14 @@ import Combine
 struct ImmersiveView: View {
     
     @Environment(AppModel.self) private var appModel
+    @Environment(\.openWindow) private var openWindow
     
     @State private var inputText = ""
     @State public var showTextField = false
     
     @State private var assistant: Entity? = nil
     @State private var waveAnimation: AnimationResource? = nil
+    @State private var jumpAnimation: AnimationResource? = nil
     
     @State public var showAttachmentButtons = false
     
@@ -63,6 +65,8 @@ struct ImmersiveView: View {
                 
                 guard let waveModel = characterAnimationSceneEntity.findEntity(named: "wave_model") else {return}
                 guard let assitant = characterEntity.findEntity(named: "assistant") else {return}
+                
+                guard let jumpUpModel = characterAnimationSceneEntity.findEntity(named: "jump_up_model") else {return}
                 
                 guard let idleAnimationResource = assitant.availableAnimations.first else {return}
                 guard let waveAnimatonResource = waveModel.availableAnimations.first else {return}
@@ -137,7 +141,9 @@ struct ImmersiveView: View {
             case .projectileFlying:
                 break
             case .updateWallart:
-                break
+                if let plane = planeEntity.findEntity(named: "canvas") as? ModelEntity {
+                    plane.model?.materials = [ImmersiveView.loadImageMaterial(imageUrl: "sketch")]
+                }
             }
         }
     }
@@ -191,6 +197,10 @@ struct ImmersiveView: View {
                           
             Task {
                 await animatePromptText(text: texts[1])
+            }
+            
+            DispatchQueue.main.async {
+                openWindow(id: "doodle_canvas")
             }
         }
     }
