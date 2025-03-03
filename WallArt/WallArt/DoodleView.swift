@@ -21,7 +21,7 @@ struct DoodleView: View {
             
             Button("Done") {
                 dismissWindow(id: "doodle_canvas")
-                appModel.flowState = .updateWallart
+                appModel.flowState = .projectileFlying
             }
             
             Spacer()

@@ -76,6 +76,7 @@ struct ImmersiveView: View {
                 guard let projectile = projectileSceneEntity.findEntity(named: "ParticleRoot") else {return}
                 projectile.children[0].components[ParticleEmitterComponent.self]?.isEmitting = false
                 projectile.children[1].components[ParticleEmitterComponent.self]?.isEmitting = false
+                
                 characterEntity.addChild(projectile)
                 
                 guard let idleAnimationResource = assitant.availableAnimations.first else {return}
@@ -164,6 +165,7 @@ struct ImmersiveView: View {
                         projectile.children[0].components[ParticleEmitterComponent.self]?.isEmitting = true
                         projectile.children[1].components[ParticleEmitterComponent.self]?.isEmitting = true
                         projectile.move(to: dest, relativeTo: self.characterEntity, duration: duration, timingFunction: .easeInOut)
+                        try? await Task.sleep(for: .seconds(duration))
                         projectile.children[0].components[ParticleEmitterComponent.self]?.isEmitting = false
                         projectile.children[1].components[ParticleEmitterComponent.self]?.isEmitting = false
                         appModel.flowState = .updateWallart
