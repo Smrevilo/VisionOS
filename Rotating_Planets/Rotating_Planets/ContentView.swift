@@ -10,6 +10,7 @@ import RealityKit
 import RealityKitContent
 
 struct ContentView: View {
+    @Environment(\.openImmersiveSpace) var openImmersiveSpace
 
     var body: some View {
         VStack {
@@ -17,8 +18,14 @@ struct ContentView: View {
                 .padding(.bottom, 50)
 
             Text("Hello, world!")
+            
+            Button("Open Saturn") {
+                Task {
+                    await openImmersiveSpace(id: "saturn")
+                }
+                
+            }
 
-            ToggleImmersiveSpaceButton()
         }
         .padding()
     }
@@ -26,5 +33,4 @@ struct ContentView: View {
 
 #Preview(windowStyle: .automatic) {
     ContentView()
-        .environment(AppModel())
 }
