@@ -11,6 +11,11 @@ import SwiftUI
 struct WallArtApp: App {
 
     @State private var appModel = AppModel()
+    
+    init() {
+        ImpactParticleSystem.registerSystem()
+        ProjectileComponent.registerComponent()
+    }
 
     var body: some Scene {
         WindowGroup {

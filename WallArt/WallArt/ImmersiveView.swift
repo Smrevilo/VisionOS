@@ -76,8 +76,17 @@ struct ImmersiveView: View {
                 guard let projectile = projectileSceneEntity.findEntity(named: "ParticleRoot") else {return}
                 projectile.children[0].components[ParticleEmitterComponent.self]?.isEmitting = false
                 projectile.children[1].components[ParticleEmitterComponent.self]?.isEmitting = false
-                
+                projectile.components.set(ProjectileComponent())
                 characterEntity.addChild(projectile)
+                
+                let impactParticleSceneEntity = try await Entity(named: "ImpactParticle", in: realityKitContentBundle)
+                guard let impactParticle = impactParticleSceneEntity.findEntity(named: "ImpactParticle") else {return}
+                impactParticle.position = [0, 0, 0]
+                impactParticle.components[ParticleEmitterComponent.self]?.burstCount = 500
+                impactParticle.components[ParticleEmitterComponent.self]?.emitterShapeSize.x = 3.75 / 2.0
+                impactParticle.components[ParticleEmitterComponent.self]?.emitterShapeSize.z = 2.625 / 2.0
+                planeEntity.addChild(impactParticle)
+                
                 
                 guard let idleAnimationResource = assitant.availableAnimations.first else {return}
                 guard let waveAnimatonResource = waveModel.availableAnimations.first else {return}
@@ -173,6 +182,7 @@ struct ImmersiveView: View {
                 }
                 
             case .updateWallart:
+                self.projectile?.components[ProjectileComponent.self]?.canBurst = true
                 if let plane = planeEntity.findEntity(named: "canvas") as? ModelEntity {
                     plane.model?.materials = [ImmersiveView.loadImageMaterial(imageUrl: "sketch")]
                 }
