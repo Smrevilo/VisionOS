@@ -10,74 +10,95 @@ import RealityKit
 import RealityKitContent
 
 struct Planets: View {
-    
     @Environment(\.dismissWindow) var dismissWindow
-    
-    @State private var mercuryEntity: Entity?
-    @State private var venusEntity: Entity?
-    @State private var earthEntity: Entity?
-    @State private var marsEntity: Entity?
-    @State private var jupiterEntity: Entity?
-    @State private var saturnEntity: Entity?
-    @State private var uranusEntity: Entity?
-    @State private var neptuneEntity: Entity?
-    
-    @State private var updateTimer: Timer?
-    
     
     var body: some View {
         RealityView { content in
             if let scene = try? await Entity(named: "Planets", in: realityKitContentBundle) {
                 content.add(scene)
-                mercuryEntity = scene.findEntity(named: "Mercury")
-                venusEntity   = scene.findEntity(named: "Venus")
-                earthEntity   = scene.findEntity(named: "Earth")
-                marsEntity    = scene.findEntity(named: "Mars")
-                jupiterEntity = scene.findEntity(named: "Jupiter")
-                saturnEntity  = scene.findEntity(named: "Saturn")
-                uranusEntity  = scene.findEntity(named: "Uranus")
-                neptuneEntity = scene.findEntity(named: "Neptune")
+                
             }
            
         }
         .gesture(TapGesture().targetedToAnyEntity().onEnded { value in
-            let tappedEntity = value.entity
-            if let planetSpin = tappedEntity.parent {
-                if let planetOrbit = planetSpin.parent {
-                    Task{
-                        let rotateFullSequence = Planets.createRotationAnimation(initialTransform: tappedEntity.transform, center: planetOrbit.transform.translation)
-                        
-                        let yAxis: SIMD3<Float> = [0, 1, 0]
-
-                        let orbit = OrbitAnimation(
-                            name: "orbit",
-                            duration: 50,
-                            axis: yAxis,
-                            startTransform: planetSpin.transform,
-                            spinClockwise: true,
-                            orientToPath: true,
-                            bindTarget: .transform,
-                            repeatMode: .repeat
-                        )
-                        
-                        if let orbitAnimationResource = try? AnimationResource.generate(with: orbit) {
-                            planetSpin.playAnimation(orbitAnimationResource, transitionDuration: 0.0, startsPaused: false)
-                        }
-
-                        if let rotationAnimation = try? AnimationResource.generate(with: rotateFullSequence) {
-                            tappedEntity.playAnimation(rotationAnimation, transitionDuration: 0.0, startsPaused: false)
-                        }
-                    }
+            if value.entity.parent?.parent?.name == "Orbiting_planets" {
+                if value.entity.name == "Earth" {
+                    Planets.moonOrbit(tappedEntity: value.entity)
                 }
+                Planets.animatePlanets(tappedEntity: value.entity)
+            } else {
+                Planets.animateSun(tappedEntity: value.entity)
             }
-            
         })
         .onAppear() {
             dismissWindow(id: "main")
         }
     }
     
-    static private func createRotationAnimation(initialTransform: Transform, center: SIMD3<Float>) -> AnimationGroup {
+    static private func moonOrbit(tappedEntity: Entity) {
+        if let moon = tappedEntity.parent?.findEntity(named: "Moon_orbit") {
+            print("fundet")
+            Task {
+                let yAxis: SIMD3<Float> = [0, 1, 0]
+                let orbit = OrbitAnimation(
+                    name: "MoonOrbit",
+                    duration: 5,
+                    axis: yAxis,
+                    startTransform: moon.transform,
+                    spinClockwise: true,
+                    orientToPath: true,
+                    bindTarget: .transform,
+                    repeatMode: .repeat
+                )
+                
+                if let orbitAnimationResource = try? AnimationResource.generate(with: orbit) {
+                    moon.playAnimation(orbitAnimationResource, transitionDuration:0.0, startsPaused: false)
+                }
+            }
+        }
+    }
+    
+    static private func animateSun(tappedEntity: Entity) {
+        Task{
+            let rotateFullSequence = Planets.createRotationAnimation(initialTransform:tappedEntity.transform)
+            
+            if let rotationAnimation = try? AnimationResource.generate(with: rotateFullSequence){
+                tappedEntity.playAnimation(rotationAnimation, transitionDuration: 0.0,startsPaused:false)
+            }
+        
+        }
+    }
+    
+    static private func animatePlanets(tappedEntity: Entity) {
+        if let planetOrbit = tappedEntity.parent {
+            Task{
+                let rotateFullSequence = Planets.createRotationAnimation(initialTransform:tappedEntity.transform)
+            
+                let yAxis: SIMD3<Float> = [0, 1, 0]
+                let orbit = OrbitAnimation(
+                    name: "orbit",
+                    duration: TimeInterval(Int.random(in: 40...90)),
+                    axis: yAxis,
+                    startTransform: planetOrbit.transform,
+                    spinClockwise: false,
+                    orientToPath: true,
+                    bindTarget: .transform,
+                    repeatMode: .repeat
+                )
+                
+                if let orbitAnimationResource = try? AnimationResource.generate(with: orbit) {
+                    planetOrbit.playAnimation(orbitAnimationResource, transitionDuration:0.0, startsPaused: false)
+                }
+                
+                
+                if let rotationAnimation = try? AnimationResource.generate(with: rotateFullSequence){
+                    tappedEntity.playAnimation(rotationAnimation, transitionDuration: 0.0,startsPaused: false)
+                }
+            }
+        }
+    }
+    
+    static private func createRotationAnimation(initialTransform: Transform) -> AnimationGroup {
         // First target: 1/3 of a full rotation (120°) about the y-axis.
         var transformTarget1 = initialTransform
         let rotation120 = simd_quatf(angle: 2 * Float.pi / 3, axis: SIMD3<Float>(0,1,0))
@@ -89,7 +110,7 @@ struct Planets: View {
         
 
         // 2. Define the duration for each segment.
-        let duration: TimeInterval = 3
+        let duration: TimeInterval = TimeInterval(Int.random(in: 3...7))
 
         // 3. Create the animations.
         let rotateSegment1 = FromToByAnimation(

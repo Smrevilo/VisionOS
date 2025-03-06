@@ -23,6 +23,9 @@ def Xform "Root"
             active = true
         )
         {
+            float3 xformOp:translate = (2.34, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             def "Saturn" (
                 active = true
                 customData = {
@@ -33,7 +36,7 @@ def Xform "Root"
             {
                 quatf xformOp:orient = (0.93281204, 0.098540045, 0.32053313, -0.13194746)
                 float3 xformOp:scale = (1.4000001, 1.4000001, 1.4000002)
-                float3 xformOp:translate = (2.3404987, 0, 0)
+                float3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 def RealityKitComponent "Collider"
@@ -66,6 +69,9 @@ def Xform "Root"
             active = true
         )
         {
+            float3 xformOp:translate = (0.69, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             def "Venus" (
                 active = true
                 references = @Venus.usdz@
@@ -73,7 +79,7 @@ def Xform "Root"
             {
                 quatf xformOp:orient = (1, 0, 0, 0)
                 float3 xformOp:scale = (0.5, 0.5, 0.5)
-                float3 xformOp:translate = (0.6904986, 0, 0)
+                float3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 def RealityKitComponent "InputTarget"
@@ -106,6 +112,9 @@ def Xform "Root"
             active = true
         )
         {
+            float3 xformOp:translate = (3.09, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             def "Uranus" (
                 active = true
                 customData = {
@@ -116,7 +125,7 @@ def Xform "Root"
             {
                 quatf xformOp:orient = (0.9846178, -1.6913512e-16, -1.041424e-8, -0.1747219)
                 float3 xformOp:scale = (1.1999998, 1.1999998, 1.2)
-                float3 xformOp:translate = (3.0904984, 0, 0)
+                float3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 def RealityKitComponent "InputTarget"
@@ -149,6 +158,9 @@ def Xform "Root"
             active = true
         )
         {
+            float3 xformOp:translate = (0.44, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             def "Mercury" (
                 active = true
                 references = @Mercury.usdz@
@@ -156,7 +168,7 @@ def Xform "Root"
             {
                 quatf xformOp:orient = (1, 0, 0, 0)
                 float3 xformOp:scale = (0.3, 0.3, 0.3)
-                float3 xformOp:translate = (0.4404987, 1.1920929e-7, 0)
+                float3 xformOp:translate = (0, 1.1920929e-7, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 def RealityKitComponent "InputTarget"
@@ -189,6 +201,9 @@ def Xform "Root"
             active = true
         )
         {
+            float3 xformOp:translate = (1.64, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             def "Jupiter" (
                 active = true
                 customData = {
@@ -200,7 +215,7 @@ def Xform "Root"
                 reorder nameChildren = ["Mercury", "geom", "Collider", "InputTarget"]
                 quatf xformOp:orient = (0.9869996, 0, 0, -0.16072291)
                 float3 xformOp:scale = (1.5, 1.5, 1.5)
-                float3 xformOp:translate = (1.6404986, 0, 0)
+                float3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 def RealityKitComponent "Collider"
@@ -233,14 +248,19 @@ def Xform "Root"
             active = true
         )
         {
+            reorder nameChildren = ["Earth", "Moon_orbit"]
+            float3 xformOp:translate = (0.94, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             def "Earth" (
                 active = true
                 references = @Earth.usdz@
             )
             {
+                reorder nameChildren = ["geom", "InputTarget", "Collider", "Moon_orbit"]
                 quatf xformOp:orient = (1, 0, 0, 0)
                 float3 xformOp:scale = (0.5, 0.5, 0.5)
-                float3 xformOp:translate = (0.9404986, 0, 0)
+                float3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 def RealityKitComponent "InputTarget"
@@ -267,12 +287,36 @@ def Xform "Root"
                     }
                 }
             }
+
+            def Xform "Moon_orbit" (
+                active = true
+            )
+            {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.5, 0.5, 0.5)
+                float3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                def "Moon" (
+                    active = true
+                    references = @Moon.usdz@
+                )
+                {
+                    quatf xformOp:orient = (1, 0, 0, 0)
+                    float3 xformOp:scale = (0.15, 0.15, 0.15)
+                    float3 xformOp:translate = (0.15999997, 0.099999905, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                }
+            }
         }
 
         def Xform "Mars_orbit" (
             active = true
         )
         {
+            float3 xformOp:translate = (1.19, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             def "Mars" (
                 active = true
                 customData = {
@@ -283,7 +327,7 @@ def Xform "Root"
             {
                 quatf xformOp:orient = (0.9630483, -8.026625e-9, 3.21065e-8, 0.26932877)
                 float3 xformOp:scale = (0.4, 0.4, 0.39999995)
-                float3 xformOp:translate = (1.1904986, 0, 0)
+                float3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 def RealityKitComponent "InputTarget"
@@ -316,6 +360,9 @@ def Xform "Root"
             active = true
         )
         {
+            float3 xformOp:translate = (3.69, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             def "Neptune" (
                 active = true
                 customData = {
@@ -326,7 +373,7 @@ def Xform "Root"
             {
                 quatf xformOp:orient = (0.9844548, -5.074894e-16, 1.0468849e-8, 0.17563808)
                 float3 xformOp:scale = (1.2, 1.2, 1.2)
-                float3 xformOp:translate = (3.6904986, 0, 0)
+                float3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 def RealityKitComponent "InputTarget"
