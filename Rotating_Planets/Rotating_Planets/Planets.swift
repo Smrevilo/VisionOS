@@ -39,7 +39,7 @@ struct Planets: View {
         if let moon = tappedEntity.parent?.findEntity(named: "Moon_orbit") {
             print("fundet")
             Task {
-                let yAxis: SIMD3<Float> = [0, 1, 0]
+                let yAxis: SIMD3<Float> = [-sin(0.5586), cos(0.5586), 0]
                 let orbit = OrbitAnimation(
                     name: "MoonOrbit",
                     duration: 5,
