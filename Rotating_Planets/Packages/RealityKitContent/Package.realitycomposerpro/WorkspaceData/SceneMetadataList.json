@@ -41,7 +41,28 @@
         "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
         "Root",
         "Orbiting_planets",
-        "Earth_orbit"
+        "Venus_orbit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
+        "Root",
+        "Orbiting_planets",
+        "Earth_orbit",
+        "Moon_orbit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
+        "Root",
+        "Orbiting_planets",
+        "Mercury_orbit"
       ],
       {
         "isExpanded" : true,
@@ -68,8 +89,37 @@
         "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
         "Root",
         "Orbiting_planets",
-        "Earth_orbit",
-        "Moon_orbit"
+        "Earth_orbit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
+        "Root",
+        "Orbiting_planets",
+        "Jupiter_orbit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
+        "Root",
+        "Orbiting_planets",
+        "Uranus_orbit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
+        "Root",
+        "Orbiting_planets",
+        "Neptune_orbit"
       ],
       {
         "isExpanded" : true,
@@ -81,6 +131,26 @@
         "Orbiting_planets",
         "Earth_orbit",
         "Earth"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
+        "Root",
+        "Orbiting_planets",
+        "Mars_orbit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "9B9A4F8F-B931-4708-BBEA-664263DD8D13",
+        "Root",
+        "Orbiting_planets",
+        "Saturn_orbit"
       ],
       {
         "isExpanded" : true,
