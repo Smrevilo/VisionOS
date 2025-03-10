@@ -7,29 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6F68931B2D7AFC9400F5CF1D /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 6F68931A2D7AFC9400F5CF1D /* RealityKitContent */; };
+		6FF54D1C2D7EEBAD0080B272 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 6FF54D1B2D7EEBAD0080B272 /* RealityKitContent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6F6893152D7AFC9400F5CF1D /* VisionDice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisionDice.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F6893192D7AFC9400F5CF1D /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
+		6FF54D162D7EEBAD0080B272 /* VisionDice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisionDice.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FF54D1A2D7EEBAD0080B272 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		6F68932C2D7AFC9600F5CF1D /* Exceptions for "VisionDice" folder in "VisionDice" target */ = {
+		6FF54D2D2D7EEBAF0080B272 /* Exceptions for "VisionDice" folder in "VisionDice" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 6F6893142D7AFC9400F5CF1D /* VisionDice */;
+			target = 6FF54D152D7EEBAD0080B272 /* VisionDice */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		6F6893172D7AFC9400F5CF1D /* VisionDice */ = {
+		6FF54D182D7EEBAD0080B272 /* VisionDice */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				6F68932C2D7AFC9600F5CF1D /* Exceptions for "VisionDice" folder in "VisionDice" target */,
+				6FF54D2D2D7EEBAF0080B272 /* Exceptions for "VisionDice" folder in "VisionDice" target */,
 			);
 			path = VisionDice;
 			sourceTree = "<group>";
@@ -37,38 +37,38 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6F6893122D7AFC9400F5CF1D /* Frameworks */ = {
+		6FF54D132D7EEBAD0080B272 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F68931B2D7AFC9400F5CF1D /* RealityKitContent in Frameworks */,
+				6FF54D1C2D7EEBAD0080B272 /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6F68930C2D7AFC9400F5CF1D = {
+		6FF54D0D2D7EEBAD0080B272 = {
 			isa = PBXGroup;
 			children = (
-				6F6893172D7AFC9400F5CF1D /* VisionDice */,
-				6F6893182D7AFC9400F5CF1D /* Packages */,
-				6F6893162D7AFC9400F5CF1D /* Products */,
+				6FF54D182D7EEBAD0080B272 /* VisionDice */,
+				6FF54D192D7EEBAD0080B272 /* Packages */,
+				6FF54D172D7EEBAD0080B272 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		6F6893162D7AFC9400F5CF1D /* Products */ = {
+		6FF54D172D7EEBAD0080B272 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6F6893152D7AFC9400F5CF1D /* VisionDice.app */,
+				6FF54D162D7EEBAD0080B272 /* VisionDice.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6F6893182D7AFC9400F5CF1D /* Packages */ = {
+		6FF54D192D7EEBAD0080B272 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				6F6893192D7AFC9400F5CF1D /* RealityKitContent */,
+				6FF54D1A2D7EEBAD0080B272 /* RealityKitContent */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -76,65 +76,65 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6F6893142D7AFC9400F5CF1D /* VisionDice */ = {
+		6FF54D152D7EEBAD0080B272 /* VisionDice */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6F68932D2D7AFC9600F5CF1D /* Build configuration list for PBXNativeTarget "VisionDice" */;
+			buildConfigurationList = 6FF54D2E2D7EEBAF0080B272 /* Build configuration list for PBXNativeTarget "VisionDice" */;
 			buildPhases = (
-				6F6893112D7AFC9400F5CF1D /* Sources */,
-				6F6893122D7AFC9400F5CF1D /* Frameworks */,
-				6F6893132D7AFC9400F5CF1D /* Resources */,
+				6FF54D122D7EEBAD0080B272 /* Sources */,
+				6FF54D132D7EEBAD0080B272 /* Frameworks */,
+				6FF54D142D7EEBAD0080B272 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				6F6893172D7AFC9400F5CF1D /* VisionDice */,
+				6FF54D182D7EEBAD0080B272 /* VisionDice */,
 			);
 			name = VisionDice;
 			packageProductDependencies = (
-				6F68931A2D7AFC9400F5CF1D /* RealityKitContent */,
+				6FF54D1B2D7EEBAD0080B272 /* RealityKitContent */,
 			);
 			productName = VisionDice;
-			productReference = 6F6893152D7AFC9400F5CF1D /* VisionDice.app */;
+			productReference = 6FF54D162D7EEBAD0080B272 /* VisionDice.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		6F68930D2D7AFC9400F5CF1D /* Project object */ = {
+		6FF54D0E2D7EEBAD0080B272 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					6F6893142D7AFC9400F5CF1D = {
+					6FF54D152D7EEBAD0080B272 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
-			buildConfigurationList = 6F6893102D7AFC9400F5CF1D /* Build configuration list for PBXProject "VisionDice" */;
+			buildConfigurationList = 6FF54D112D7EEBAD0080B272 /* Build configuration list for PBXProject "VisionDice" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 6F68930C2D7AFC9400F5CF1D;
+			mainGroup = 6FF54D0D2D7EEBAD0080B272;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 6F6893162D7AFC9400F5CF1D /* Products */;
+			productRefGroup = 6FF54D172D7EEBAD0080B272 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6F6893142D7AFC9400F5CF1D /* VisionDice */,
+				6FF54D152D7EEBAD0080B272 /* VisionDice */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6F6893132D7AFC9400F5CF1D /* Resources */ = {
+		6FF54D142D7EEBAD0080B272 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -144,7 +144,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6F6893112D7AFC9400F5CF1D /* Sources */ = {
+		6FF54D122D7EEBAD0080B272 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -154,7 +154,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		6F68932E2D7AFC9600F5CF1D /* Debug */ = {
+		6FF54D2F2D7EEBAF0080B272 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -180,7 +180,7 @@
 			};
 			name = Debug;
 		};
-		6F68932F2D7AFC9600F5CF1D /* Release */ = {
+		6FF54D302D7EEBAF0080B272 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -206,7 +206,7 @@
 			};
 			name = Release;
 		};
-		6F6893302D7AFC9600F5CF1D /* Debug */ = {
+		6FF54D312D7EEBAF0080B272 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -269,7 +269,7 @@
 			};
 			name = Debug;
 		};
-		6F6893312D7AFC9600F5CF1D /* Release */ = {
+		6FF54D322D7EEBAF0080B272 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -328,20 +328,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6F6893102D7AFC9400F5CF1D /* Build configuration list for PBXProject "VisionDice" */ = {
+		6FF54D112D7EEBAD0080B272 /* Build configuration list for PBXProject "VisionDice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6F6893302D7AFC9600F5CF1D /* Debug */,
-				6F6893312D7AFC9600F5CF1D /* Release */,
+				6FF54D312D7EEBAF0080B272 /* Debug */,
+				6FF54D322D7EEBAF0080B272 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6F68932D2D7AFC9600F5CF1D /* Build configuration list for PBXNativeTarget "VisionDice" */ = {
+		6FF54D2E2D7EEBAF0080B272 /* Build configuration list for PBXNativeTarget "VisionDice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6F68932E2D7AFC9600F5CF1D /* Debug */,
-				6F68932F2D7AFC9600F5CF1D /* Release */,
+				6FF54D2F2D7EEBAF0080B272 /* Debug */,
+				6FF54D302D7EEBAF0080B272 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -349,11 +349,11 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6F68931A2D7AFC9400F5CF1D /* RealityKitContent */ = {
+		6FF54D1B2D7EEBAD0080B272 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 6F68930D2D7AFC9400F5CF1D /* Project object */;
+	rootObject = 6FF54D0E2D7EEBAD0080B272 /* Project object */;
 }

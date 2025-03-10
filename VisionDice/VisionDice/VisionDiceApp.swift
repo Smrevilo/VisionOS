@@ -2,7 +2,7 @@
 //  VisionDiceApp.swift
 //  VisionDice
 //
-//  Created by m1 on 07/03/2025.
+//  Created by m1 on 10/03/2025.
 //
 
 import SwiftUI
@@ -17,6 +17,7 @@ struct VisionDiceApp: App {
             ContentView()
                 .environment(appModel)
         }
+        .defaultSize(width: 200, height: 300)
 
         ImmersiveSpace(id: appModel.immersiveSpaceID) {
             ImmersiveView()

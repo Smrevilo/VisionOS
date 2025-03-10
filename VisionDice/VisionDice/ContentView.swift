@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  VisionDice
 //
-//  Created by m1 on 07/03/2025.
+//  Created by m1 on 10/03/2025.
 //
 
 import SwiftUI
@@ -13,10 +13,12 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
-                .padding(.bottom, 50)
-
-            Text("Hello, world!")
+            
+            Text("🎲")
+                .foregroundStyle(.yellow)
+                .font(.custom("Menlo", size: 100))
+                .bold()
+                .padding()
 
             ToggleImmersiveSpaceButton()
         }
