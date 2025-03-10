@@ -9,7 +9,16 @@ import SwiftUI
 import RealityKit
 import RealityKitContent
 
+let diceMap = [
+    [1, 6],
+    [4, 3],
+    [2, 5]
+]
+
 struct ImmersiveView: View {
+    
+    @Environment(AppModel.self) private var appModel
+    
     @State private var droppedDice = false
 
     var body: some View {
@@ -19,48 +28,40 @@ struct ImmersiveView: View {
             floor.components[PhysicsBodyComponent.self] = .init(massProperties: .default, mode: .static)
             content.add(floor)
             
-            
             if let diceScene = try? await Entity(named: "dice") {
                 if let dice = diceScene.children.first?.children.first {
-                    if let environment = try? await EnvironmentResource(named: "studio") {
-                        dice.scale = [0.1, 0.1, 0.1]
-                        dice.position.y = 0.5
-                        dice.position.z = -1
+                    
+                    dice.scale = [0.1, 0.1, 0.1]
+                    dice.position.y = 0.5
+                    dice.position.z = -1
+                    
+                    dice.generateCollisionShapes(recursive: false)
+                    dice.components.set(InputTargetComponent())
+                    
+                    dice.components[PhysicsBodyComponent.self] = .init(massProperties: .default,
+                                                                       material:.generate(staticFriction: 0.8,dynamicFriction: 0.5, restitution:0.1),
+                                                                       mode: .dynamic)
+                    dice.components[PhysicsMotionComponent.self] = .init()
+                    
+                    content.add(dice)
+                    
+                    let _ = content.subscribe(to: SceneEvents.Update.self) { event in
+                        guard droppedDice else {return}
+                        guard let diceMotion = dice.components[PhysicsMotionComponent.self] else {return}
                         
-                        dice.generateCollisionShapes(recursive: false)
-                        dice.components.set(InputTargetComponent())
-                        
-                        dice.components.set(ImageBasedLightComponent(source: .single(environment)))
-                        dice.components.set(ImageBasedLightReceiverComponent(imageBasedLight: dice))
-                        dice.components.set(GroundingShadowComponent(castsShadow: true))
-                        
-                        dice.components[PhysicsBodyComponent.self] = .init(massProperties: .default,
-                                                                           material: .generate(staticFriction: 0.8, dynamicFriction: 0.5, restitution: 0.1),
-                                                                           mode: .dynamic)
-                        dice.components[PhysicsMotionComponent.self] = .init()
-                        
-                        
-                        
-                        content.add(dice)
-                        
-                        let _ = content.subscribe(to: SceneEvents.Update.self) { event in
-                            guard droppedDice else {return}
-                            guard let diceMotion = dice.components[PhysicsMotionComponent.self] else {return}
+                        if simd_length(diceMotion.linearVelocity) < 0.1 && simd_length(diceMotion.angularVelocity) < 0.1 {
+                            let xDirection = dice.convert(direction: SIMD3(x: 1, y: 0, z: 0), to: nil)
+                            let yDirection = dice.convert(direction: SIMD3(x: 0, y: 1, z: 0), to: nil)
+                            let zDirection = dice.convert(direction: SIMD3(x: 0, y: 0, z: 1), to: nil)
                             
-                            if simd_length(diceMotion.linearVelocity) < 0.1 && simd_length(diceMotion.angularVelocity) < 0.1 {
-                                let xDirection = dice.convert(direction: SIMD3(x: 1, y: 0, z: 0), to: nil)
-                                let yDirection = dice.convert(direction: SIMD3(x: 0, y: 1, z: 0), to: nil)
-                                let zDirection = dice.convert(direction: SIMD3(x: 0, y: 0, z: 1), to: nil)
-                                
-                                let greatestDirection = [
-                                    0: xDirection.y,
-                                    1: yDirection.y,
-                                    2: zDirection.y
-                                ]
-                                    .sorted(by: {abs($0.1) > abs($1.1)})[0]
-                                
-                                
-                            }
+                            let greatestDirection = [
+                                0: xDirection.y,
+                                1: yDirection.y,
+                                2: zDirection.y
+                            ]
+                                .sorted(by: {abs($0.1) > abs($1.1)})[0]
+                            
+                            appModel.rolledNumber = diceMap[greatestDirection.key][greatestDirection.value > 0 ? 0 : 1]
                         }
                     }
                 }

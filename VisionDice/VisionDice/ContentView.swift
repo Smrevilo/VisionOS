@@ -10,11 +10,12 @@ import RealityKit
 import RealityKitContent
 
 struct ContentView: View {
+    @Environment(AppModel.self) private var appModel
 
     var body: some View {
         VStack {
             
-            Text("🎲")
+            Text("🎲: \(appModel.rolledNumber)")
                 .foregroundStyle(.yellow)
                 .font(.custom("Menlo", size: 100))
                 .bold()
