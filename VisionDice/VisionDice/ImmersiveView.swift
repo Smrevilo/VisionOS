@@ -37,6 +37,7 @@ struct ImmersiveView: View {
                     
                     dice.generateCollisionShapes(recursive: false)
                     dice.components.set(InputTargetComponent())
+                    dice.components.set(GroundingShadowComponent(castsShadow: true))
                     
                     dice.components[PhysicsBodyComponent.self] = .init(massProperties: .default,
                                                                        material:.generate(staticFriction: 0.8,dynamicFriction: 0.5, restitution:0.1),
