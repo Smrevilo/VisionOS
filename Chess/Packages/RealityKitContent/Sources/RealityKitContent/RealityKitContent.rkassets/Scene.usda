@@ -7,7 +7,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["GridMaterial", "Sphere"]
+    reorder nameChildren = ["GridMaterial", "Sphere", "Cube"]
     rel material:binding = None (
         bindMaterialAs = "weakerThanDescendants"
     )
