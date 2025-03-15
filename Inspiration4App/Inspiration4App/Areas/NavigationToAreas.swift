@@ -26,7 +26,7 @@ struct NavigationToAreas: View {
                         } else if area == .equiment {
                             EquipmentArea()
                         } else if area == .mission {
-                            
+                            MissionArea()
                         }
                 
                         Spacer()
