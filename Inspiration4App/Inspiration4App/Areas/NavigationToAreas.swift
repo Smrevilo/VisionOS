@@ -24,7 +24,7 @@ struct NavigationToAreas: View {
                         if area == .astronauts {
                             CrewArea()
                         } else if area == .equiment {
-                            
+                            EquipmentArea()
                         } else if area == .mission {
                             
                         }
@@ -49,4 +49,5 @@ struct NavigationToAreas: View {
 
 #Preview {
     NavigationToAreas()
+        .environment(ViewModel())
 }
