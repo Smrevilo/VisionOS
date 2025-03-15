@@ -22,7 +22,7 @@ struct NavigationToAreas: View {
                             .monospaced()
                             .font(.system(size: 40, weight: .bold))
                         if area == .astronauts {
-                            
+                            CrewArea()
                         } else if area == .equiment {
                             
                         } else if area == .mission {
