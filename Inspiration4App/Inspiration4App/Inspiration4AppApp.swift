@@ -17,17 +17,23 @@ struct Inspiration4AppApp: App {
                 .environment(model)
         }
         
-        WindowGroup(id: "CapsuleRealityArea") {
+        WindowGroup(id: model.capsuleRealityAreaId) {
             CapsuleRealityArea()
                 .environment(model)
         }
         .windowStyle(.volumetric)
         .defaultSize(width: 0.6, height: 0.6, depth: 0.6, in: .meters)
         
-        ImmersiveSpace(id: "FullRocketRealityArea") {
+        ImmersiveSpace(id: model.fullRocketRealityAreaId) {
             FullRocketRealityArea()
                 .environment(model)
         }
         .immersionStyle(selection: .constant(.full), in: .full)
+        
+        ImmersiveSpace(id: model.mixedRocketRealityAreaId) {
+            FullRocketRealityArea()
+                .environment(model)
+        }
+        .immersionStyle(selection: .constant(.mixed), in: .mixed)
     }
 }
