@@ -36,4 +36,9 @@ struct Inspiration4AppApp: App {
         }
         .immersionStyle(selection: .constant(.mixed), in: .mixed)
     }
+    
+    init() {
+        OrbitComponent.registerComponent()
+        OrbitSystem.registerSystem()
+    }
 }

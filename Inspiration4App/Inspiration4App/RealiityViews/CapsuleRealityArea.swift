@@ -10,7 +10,7 @@ import RealityKit
 import RealityKitContent
 
 struct CapsuleRealityArea: View {
-    
+    @Environment(ViewModel.self) private var model
     @State private var capsule : Entity?
     
     let attachmentId = "attachmentId"
@@ -23,7 +23,7 @@ struct CapsuleRealityArea: View {
             
             content.add(entity)
             self.capsule = entity
-            
+            self.capsule?.components.set(OrbitComponent(radius: 0.05, speed: 0, angle: 0, addOrientationRotation: true))
             
             if let sceneAttachments = attachments.entity(for: attachmentId) {
                 sceneAttachments.position = SIMD3<Float>(-0.2, -0.1, 0.1)
@@ -41,15 +41,18 @@ struct CapsuleRealityArea: View {
         } attachments: {
             Attachment(id: attachmentId) {
                 CapsuleDetails {
-                    self.capsule?.setSunlight(intensity: 16)
+                    capsule?.setSunlight(intensity: 12)
                 } turnOffLight: {
-                    self.capsule?.setSunlight(intensity: 6)
+                    capsule?.setSunlight(intensity: 6)
                 } turnOnOrbit: {
-                    
+                    self.capsule?.components[OrbitComponent.self]?.speed = 1
                 } turnOffOrbit: {
-                    
+                    self.capsule?.components[OrbitComponent.self]?.speed = 0
                 }
             }
+        }
+        .onDisappear() {
+            model.isShowingRocketCapsule = false
         }
     }
 }
