@@ -10,6 +10,7 @@ import SwiftUI
 import ARKit
 import RealityKitContent
 
+@MainActor
 @Observable
 class HandTrackingViewModel {
     private let session = ARKitSession()
@@ -26,6 +27,10 @@ class HandTrackingViewModel {
     private var lastCubePlacementTime: TimeInterval = 0
     
     func setupContentEntity() -> Entity {
+        for entity in fingerEntities.values {
+            contentEntity.addChild(entity)
+        }
         
+        return contentEntity
     }
 }
