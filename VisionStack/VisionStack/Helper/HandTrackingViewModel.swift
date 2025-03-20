@@ -33,4 +33,30 @@ class HandTrackingViewModel {
         
         return contentEntity
     }
+    
+    func runSession() async {
+        do {
+            try await session.run([sceneReconstruction, handTracking])
+        } catch {
+            print("failed to start session: \(error)")
+        }
+    }
+    
+    func processHandUpdates() async {
+        for await update in handTracking.anchorUpdates {
+            let handAnchor = update.anchor
+            
+            guard handAnchor.isTracked else {continue}
+            
+            let fingerTip = handAnchor.handSkeleton?.joint(.indexFingerTip)
+            
+            guard (fingerTip?.isTracked) != nil else {continue}
+            
+            let originFromWrist = handAnchor.originFromAnchorTransform
+            let wristFromIndex = fingerTip?.anchorFromJointTransform
+            let originFromIndex = originFromWrist * wristFromIndex!
+            
+            fingerEntities[handAnchor.chirality]?.setTransformMatrix(originFromIndex, relativeTo: nil)
+        }
+    }
 }

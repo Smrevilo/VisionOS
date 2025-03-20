@@ -6,18 +6,17 @@
 //
 
 import SwiftUI
+import RealityKit
 
 struct StackingView: View {
     @State var model = HandTrackingViewModel()
     
     var body: some View {
         RealityView { content in
-            // Add our content entity (the root)
-            
-            
+            content.add(model.setupContentEntity())
             
         }.task {
-            // run ARKit session
+            await model.runSession()
         }.task {
             // process our hand updates
         }.task {
