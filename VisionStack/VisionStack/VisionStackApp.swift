@@ -19,7 +19,7 @@ struct VisionStackApp: App {
         }
 
         ImmersiveSpace(id: appModel.immersiveSpaceID) {
-            ImmersiveView()
+            StackingView()
                 .environment(appModel)
                 .onAppear {
                     appModel.immersiveSpaceState = .open
