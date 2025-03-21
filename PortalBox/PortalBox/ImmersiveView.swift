@@ -57,6 +57,28 @@ struct ImmersiveView: View {
                 guard let anchor4 = portalScene.findEntity(named: "AnchorPortal_3") else {fatalError("Cannot find Anchor")}
                 anchor4.addChild(worldPortal4)
                 worldPortal4.transform.rotation = simd_quatf(angle: (.pi / 2), axis: [0, 0, 1])
+                
+                if let weather = try? await Entity(named: "WeatherScene", in: realityKitContentBundle) {
+                    guard let snow = weather.findEntity(named: "ParticleEmitter_1") else {fatalError("Cannot find Anchor")}
+                    snow.position = [0, 1.5, -1]
+                    snow.scale *= 5
+                    world1.addChild(snow)
+                    
+                    guard let rain = weather.findEntity(named: "ParticleEmitter_2") else {fatalError("Cannot find ParticleEmitter_2")}
+                    rain.position = [0, 1.5, -1]
+                    rain.scale *= 5
+                    world2.addChild(rain)
+                    
+                    guard let leaf1 = weather.findEntity(named: "ParticleEmitter_3") else {fatalError("Cannot find ParticleEmitter_3")}
+                    leaf1.position = [0, 1.5, -1]
+                    leaf1.scale *= 5
+                    world3.addChild(leaf1)
+                    
+                    guard let leaf2 = weather.findEntity(named: "ParticleEmitter_4") else {fatalError("Cannot find ParticleEmitter_4")}
+                    leaf2.position = [0, 1.5, -1]
+                    leaf2.scale *= 5
+                    world4.addChild(leaf2)
+                }
             }
         }
     }
