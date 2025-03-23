@@ -15,15 +15,6 @@
     "objectMetadataList" : [
       [
         "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
-        "Root",
-        "BubbleMaterial"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
         "Root"
       ],
       {
@@ -34,7 +25,7 @@
         "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
         "Root",
         "BubbleMaterial",
-        "Animation_3"
+        "GenerateColorNoise"
       ],
       {
         "isExpanded" : true,
@@ -43,57 +34,7 @@
       [
         "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
         "Root",
-        "BubbleMaterial",
-        "nodegraph_1"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
-        "Root",
-        "BubbleMaterial",
-        "nodegraph_2"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
-        "Root",
-        "BubbleMaterial",
-        "nodegraph"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
-        "Root",
-        "Sphere"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
-        "Root",
-        "BubbleMaterial",
-        "Animation_2"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
-        "Root",
-        "BubbleMaterial",
-        "Animation_1"
+        "Bubble"
       ],
       {
         "isExpanded" : true,
