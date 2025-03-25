@@ -52,11 +52,11 @@ def Xform "Root"
 
     def Material "BubbleMaterial"
     {
-        float inputs:AnimationSpeed = 0 (
+        float inputs:AnimationSpeed = 0.03 (
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-1518.4006, -150.12466)
-                    int stackingOrderInSubgraph = 1128
+                    int stackingOrderInSubgraph = 1180
                 }
             }
         )
