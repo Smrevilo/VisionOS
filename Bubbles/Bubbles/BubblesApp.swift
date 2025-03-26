@@ -11,6 +11,10 @@ import SwiftUI
 struct BubblesApp: App {
 
     @State private var appModel = AppModel()
+    
+    init() {
+        //BubbleSystem.registerSystem()
+    }
 
     var body: some Scene {
         WindowGroup {

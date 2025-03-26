@@ -25,6 +25,28 @@ struct ImmersiveView: View {
                 for _ in 1...20 {
                     var bubbleClon = bubble.clone(recursive: true)
                     
+                    guard var bubbleComponent = bubbleClon.components[BubbleComponent.self] else {return}
+                    
+                    bubbleComponent.direction = [
+                        Float.random(in: -1...1),
+                        Float.random(in: -1...1),
+                        Float.random(in: -1...1)]
+                    
+                    bubbleClon.components[BubbleComponent.self] = bubbleComponent
+                    
+                    var pb = PhysicsBodyComponent()
+                    pb.linearDamping = 0
+                    pb.isAffectedByGravity = false
+                    bubbleClon.components[PhysicsBodyComponent.self] = pb
+                    
+                    var pm = PhysicsMotionComponent(linearVelocity:
+                                        [Float.random(in: -0.05...0.05),
+                                         Float.random(in: -0.05...0.05),
+                                         Float.random(in: -0.05...0.05)
+                                        ])
+                    
+                    bubbleClon.components[PhysicsMotionComponent.self] = pm
+                    
                     let x = Float.random(in: -1.5...1.5)
                     let y = Float.random(in: 1...1.5)
                     let z = Float.random(in: -1.5...1.5)
@@ -32,12 +54,8 @@ struct ImmersiveView: View {
                     bubbleClon.position = [x, y, z]
                     
                     content.add(bubbleClon)
-                    
-                    
                 }
-                
-
-                
+  
             }
         }
         .gesture(SpatialTapGesture().targetedToEntity(where: predicate).onEnded({ value in
