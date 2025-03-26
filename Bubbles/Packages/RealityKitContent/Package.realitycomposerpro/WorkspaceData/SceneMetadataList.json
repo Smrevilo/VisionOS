@@ -28,8 +28,7 @@
       [
         "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
         "Root",
-        "BubbleMaterial",
-        "GenerateColorNoise"
+        "Bubble"
       ],
       {
         "isExpanded" : true,
@@ -38,7 +37,8 @@
       [
         "51BF2572-BC8A-4D8A-B537-AF913BFFA638",
         "Root",
-        "Bubble"
+        "BubbleMaterial",
+        "GenerateColorNoise"
       ],
       {
         "isExpanded" : true,
@@ -112,8 +112,7 @@
     "objectMetadataList" : [
       [
         "CB766F92-EE55-4A63-9401-E7B8C009764D",
-        "Root",
-        "GridMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -121,7 +120,8 @@
       },
       [
         "CB766F92-EE55-4A63-9401-E7B8C009764D",
-        "Root"
+        "Root",
+        "GridMaterial"
       ],
       {
         "isExpanded" : true,

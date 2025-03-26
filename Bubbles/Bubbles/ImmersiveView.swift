@@ -12,12 +12,30 @@ import RealityKitContent
 struct ImmersiveView: View {
     @State private var predicate = QueryPredicate<Entity>.has(ModelComponent.self)
     @State private var timer: Timer?
+    @State private var bubble = Entity()
 
     var body: some View {
         RealityView { content in
             // Add the initial RealityKit content
             if let immersiveContentEntity = try? await Entity(named: "BubbleScene", in: realityKitContentBundle) {
-                content.add(immersiveContentEntity)
+                
+                
+                bubble = immersiveContentEntity.findEntity(named: "Bubble")!
+                
+                for _ in 1...20 {
+                    var bubbleClon = bubble.clone(recursive: true)
+                    
+                    let x = Float.random(in: -1.5...1.5)
+                    let y = Float.random(in: 1...1.5)
+                    let z = Float.random(in: -1.5...1.5)
+                    
+                    bubbleClon.position = [x, y, z]
+                    
+                    content.add(bubbleClon)
+                    
+                    
+                }
+                
 
                 
             }
