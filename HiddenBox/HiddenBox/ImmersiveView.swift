@@ -8,17 +8,72 @@
 import SwiftUI
 import RealityKit
 import RealityKitContent
+import Combine
 
 struct ImmersiveView: View {
+    
+    @State private var boxTopLeft = Entity()
+    @State private var boxTopRight = Entity()
+    @State private var boxTopCollision = Entity()
+    @State private var openBoxEmitter = Entity()
+    
+    @State private var isBoxOpen = false
+    
+    @State private var animationCompleteSubscription: AnyCancellable?
 
     var body: some View {
         RealityView { content in
-            // Add the initial RealityKit content
+            let anchor = AnchorEntity(.plane(.horizontal, classification: .table, minimumBounds: [0.5,0.5]))
+            content.add(anchor)
+            
             if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
-                content.add(immersiveContentEntity)
+                anchor.addChild(immersiveContentEntity)
+                
+                immersiveContentEntity.position.y = -0.25
+                
+                if let boxTopLeft = immersiveContentEntity.findEntity(named: "TopLeft_Occlusion"),
+                   let boxTopRight = immersiveContentEntity.findEntity(named: "TopRight_Occlusion"),
+                   let boxTopCollision = immersiveContentEntity.findEntity(named: "TopCollision"),
+                   let openBoxEmitter = immersiveContentEntity.findEntity(named: "OpenParticleEmitter"){
+                    self.boxTopLeft = boxTopLeft
+                    self.boxTopRight = boxTopRight
+                    self.boxTopCollision = boxTopCollision
+                    self.openBoxEmitter = openBoxEmitter
+                } else {
+                    print("faiil")
+                }
 
-                immersiveContentEntity.position = [0, 0.7, -0.7]
             }
+        }
+        .gesture(SpatialTapGesture().targetedToEntity(boxTopCollision).onEnded({ value in
+            self.playOpenBoxAnimation()
+        }))
+    }
+    
+    func playOpenBoxAnimation() {
+        guard !isBoxOpen else {return}
+        isBoxOpen.toggle()
+        
+        var leftTransform = boxTopLeft.transform
+        var rightTransform = boxTopRight.transform
+        
+        leftTransform.translation += [-0.25,0,0]
+        rightTransform.translation += [0.25,0,0]
+        
+        boxTopLeft.move(to: leftTransform, relativeTo: boxTopLeft.parent, duration: 3, timingFunction: .easeInOut)
+        boxTopRight.move(to: rightTransform, relativeTo: boxTopRight.parent, duration: 3, timingFunction: .easeInOut)
+        
+        animationCompleteSubscription = boxTopLeft.scene?.publisher(for: AnimationEvents.PlaybackCompleted.self, on: boxTopLeft).sink { _ in
+            boxTopLeft.removeFromParent()
+            boxTopRight.removeFromParent()
+            boxTopCollision.removeFromParent()
+            
+            if var particleEmitter = openBoxEmitter.components[ParticleEmitterComponent.self] {
+                particleEmitter.isEmitting = true
+                openBoxEmitter.components[ParticleEmitterComponent.self] = particleEmitter
+            }
+            
+            self.animationCompleteSubscription = nil
         }
     }
 }
