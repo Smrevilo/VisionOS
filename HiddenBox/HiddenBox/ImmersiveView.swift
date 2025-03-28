@@ -20,6 +20,10 @@ struct ImmersiveView: View {
     @State private var isBoxOpen = false
     
     @State private var animationCompleteSubscription: AnyCancellable?
+    
+    init() {
+        ToyComponent.registerComponent()
+    }
 
     var body: some View {
         RealityView { content in
@@ -48,6 +52,17 @@ struct ImmersiveView: View {
         .gesture(SpatialTapGesture().targetedToEntity(boxTopCollision).onEnded({ value in
             self.playOpenBoxAnimation()
         }))
+        .gesture(DragGesture()
+            .targetedToEntity(where: .has(ToyComponent.self))
+            .onChanged({ value in
+            value.entity.position = value.convert(value.location3D, from: .local, to: value.entity.parent!)
+                value.entity.components[PhysicsBodyComponent.self] = .none
+        })
+                .onEnded({ value in
+                    let material = PhysicsMaterialResource.generate(friction: 0.8, restitution: 0.0)
+                    let pb = PhysicsBodyComponent(material: material)
+                    value.entity.components.set(pb)
+                }))
     }
     
     func playOpenBoxAnimation() {
