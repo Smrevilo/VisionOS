@@ -102,9 +102,30 @@ class PlaneTrackingManager {
             
             let existingEntity = planeEntities[anchor.id]
             planeEntities[anchor.id] = entity
+            
             contentEntity.addChild(entity)
             existingEntity?.removeFromParent()
             
+        }
+    }
+}
+
+extension MeshResource.Contents {
+    init(planeGeometry: PlaneAnchor.Geometry) {
+        self.init()
+        self.instances = [MeshResource.Instance(id: "main", model: "model")]
+        var part = MeshResource.Part(id: "part", materialIndex: 0)
+        part.positions = MeshBuffers.Positions(planeGeometry.meshVertices.asSIMD3(ofType: Float.self))
+        part.triangleIndices = MeshBuffer(planeGeometry.meshFaces.asUInt32Array())
+        self.models = [MeshResource.Model(id: "model", parts: [part])]
+    }
+}
+
+extension GeometrySource {
+    func asArray<T>(ofType: T.Type) -> [T] {
+        assert(MemoryLayout<T>.stride == stride, "invalid stride \(MemoryLayout<T>.stride); expected \(stride)")
+        return (0..<count).map {
+            buffer.contents().advanced(by: offset + stride * Int($0)).assumingMemoryBound(to: T.self).pointee
         }
     }
 }
