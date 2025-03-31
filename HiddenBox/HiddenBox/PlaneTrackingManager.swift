@@ -80,7 +80,7 @@ class PlaneTrackingManager {
             }
             
             var material = UnlitMaterial(color: .red)
-            material.blending = .transparent(opacity: .init(floatLiteral: 0))
+            material.blending = .transparent(opacity: .init(floatLiteral: 0.3))
             
             if let meshResource {
                 entity.components.set(ModelComponent(mesh: meshResource, materials: [material]))

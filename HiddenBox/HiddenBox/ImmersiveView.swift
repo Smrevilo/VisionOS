@@ -21,6 +21,8 @@ struct ImmersiveView: View {
     
     @State private var animationCompleteSubscription: AnyCancellable?
     
+    @State private var planeTracking = PlaneTrackingManager()
+    
     init() {
         ToyComponent.registerComponent()
     }
@@ -29,6 +31,8 @@ struct ImmersiveView: View {
         RealityView { content in
             let anchor = AnchorEntity(.plane(.horizontal, classification: .table, minimumBounds: [0.5,0.5]))
             content.add(anchor)
+            
+            content.add(planeTracking.setupContentEntity())
             
             if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                 anchor.addChild(immersiveContentEntity)
@@ -63,6 +67,15 @@ struct ImmersiveView: View {
                     let pb = PhysicsBodyComponent(material: material)
                     value.entity.components.set(pb)
                 }))
+        .task {
+            await planeTracking.monitorSessionEvents()
+        }
+        .task {
+            await planeTracking.runARKitSession()
+        }
+        .task {
+            await planeTracking.processPlaneDetectionUpdates()
+        }
     }
     
     func playOpenBoxAnimation() {
